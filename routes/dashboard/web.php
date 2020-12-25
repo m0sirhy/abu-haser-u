@@ -15,7 +15,8 @@ Route::prefix('dashboard')->name('dashboard.')->middleware(['auth'])->group(func
 
     //outlay routes
     Route::resource('outlays', 'OutlayController')->except(['show']);
-    
+    Route::get('outlay/categories', 'OutlayController@cat');
+
     //outlayscategory routes
     Route::resource('outlay_categories', 'OutlayCategoryController');
 

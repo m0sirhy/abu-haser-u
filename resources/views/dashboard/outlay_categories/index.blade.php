@@ -26,26 +26,8 @@
 
                         <div class="row">
 
-                      
+                          
                             <div class="col-md-4">
-
-                                <select name="date" class="form-control">
-                                    <option  value="">@lang('site.year')</option>
-                                    @foreach ($dates as $date)
-                                        <option value="{{ $date->year }}" >{{ $date->year }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-md-4">
-                                <select name="month" class="form-control">
-                                    <option value="">@lang('site.month')</option>
-                                    @foreach ($dates as $date)
-                                        <option value=" {{$date->month}}" >{{  $date->month }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-md-4">
-                                <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> @lang('site.search')</button>
                                 @if (auth()->user()->hasPermission('create_categories'))
                                     <a href="{{ route('dashboard.outlay_categories.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> @lang('site.add')</a>
                                 @else

@@ -23,26 +23,24 @@
 
             <div class="box-header with-border">
 
-                <h3 class="box-title" style="margin-bottom: 15px">@lang('site.outlays') <small>{{ $outlays->total() }}</small></h3>
+                <h3 class="box-title" style="margin-bottom: 15px">@lang('site.outlays') <small>{{ $outlays }}</small></h3>
 
                 <form action="{{ route('dashboard.outlays.index') }}" method="get">
                     <div class="row">
 
 
                         <div class="col-md-4">
+                        <input value="{{request()->date}}" type="month" class="form-control" name="date">
 
-                            <select name="date" class="form-control">
-                                <option value="">@lang('site.year')</option>
-                                @foreach ($dates as $date)
-                                <option value="{{ $date->year }}">{{ $date->year }}</option>
-                                @endforeach
-                            </select>
+                           
                         </div>
+                      
                         <div class="col-md-4">
-                            <select name="month" class="form-control">
-                                <option value="">@lang('site.month')</option>
-                                @foreach ($dates as $date)
-                                <option value=" {{$date->month}}">{{ $date->month }}</option>
+
+                            <select name="category_id" class="form-control">
+                                <option value="">@lang('site.category')</option>
+                                @foreach ($categories as $category)
+                                <option value="{{$category->id}}" {{ request()->category_id == $category->id ? 'selected' : '' }} >{{ $category->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -56,7 +54,7 @@
                         </div>
 
                     </div>
-                
+
                 </form><!-- end of form -->
 
             </div><!-- end of box header -->
@@ -112,7 +110,7 @@
 
                         @endforeach
                     </tbody>
-
+                 
                 </table><!-- end of table -->
 
                 {{ $outlays->appends(request()->query())->links() }}

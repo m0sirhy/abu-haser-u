@@ -11,28 +11,35 @@ use Illuminate\Support\Facades\Cache;
 class Search extends Component
 {
 
-    public $query, $clients, $curent, $wrong, $empty;
+    public $query, $clients, $curent, $wrong, $empty, $address, $ad;
 
     protected $rules = [
         'query' => 'required|min:1',
     ];
-    protected $listeners =['updateStatus'=>'$refresh'];
+     protected $listeners = ['update' => '$refresh'];
     public function mount()
     {
         $this->clients = [];
         $this->query = '';
+        $this->address = '';
+        $this->ad = ConsumptionCycle::groupBy('address')->pluck('address');
     }
 
     public function resett()
     {
-        $this->reset([ 'curent','clients']);
+        $this->reset(['curent', 'clients']);
+    }
+    public function updatedAddress()
+    {
+
+        $this->clients = ConsumptionCycle::Where('address', $this->address)
+            ->get();
     }
     public function updatedQuery()
     {
         $this->validate();
 
-        $this->clients = ConsumptionCycle::
-        where('full_name', 'like', '%' . $this->query . '%')
+        $this->clients = ConsumptionCycle::where('full_name', 'like', '%' . $this->query . '%')
             ->limit(5)
             ->get();
     }
@@ -47,9 +54,9 @@ class Search extends Component
                 'user_id' => Auth::id()
             ]);
             $consume =  $record->curent - $record->previous;
+            $this->emit('update');
+            $this->reset('curent');
             session()->flash('message', ' " :تمت اضافة قراءة للسيد ' . $record->full_name . " كمية الاستهلاك " . $consume . "كيلو واط");
-
-            $this->reset('curent','clients','query');
 
         }
     }
@@ -63,23 +70,22 @@ class Search extends Component
                 'user_id' => Auth::id()
             ]);
             if ($status) {
-                session()->flash('message', ' تم تفعيل الاشتراك للسيد ' .$record->full_name );
-            }else{
-            session()->flash('danger', '  تم ايقاف الاشتراك  للسيد '.$record->full_name );
+                session()->flash('message', ' تم تفعيل الاشتراك للسيد ' . $record->full_name);
+            } else {
+                session()->flash('danger', '  تم ايقاف الاشتراك  للسيد ' . $record->full_name);
             }
-            $this->resett();
-            $this->reset('curent','clients','query');
+            $this->emit('update');
+
+            // $this->resett();
+            // $this->reset('curent', 'clients', 'query');
         }
     }
 
     public function render()
     {
-        $this->empty = ConsumptionCycle::Where('curent', 0)->count();
 
-        $this->wrong = ConsumptionCycle::select('id')
-            ->from('consumption_cycles')
-            ->where('curent', '!=', 0)
-            ->whereColumn('curent', '<', 'previous')->count();
+       
+
         return view('livewire.search');
     }
 }

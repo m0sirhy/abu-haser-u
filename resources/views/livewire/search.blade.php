@@ -1,32 +1,5 @@
 <div class="col-md-6 col-lg-6 col-11 mx-auto my-auto search-box mr-3">
-    @role('super_admin')
-
-    <div class="row ">
-
-        @if($empty)
-
-        <div class="col-6 col-sm-4 mx-auto">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title text-center" style="font-size: medium;">عدد الاشتراكات الغير مقرؤة</h5>
-                    <h6 class="card-text text-center">{{$empty}}</h6>
-                </div>
-            </div>
-        </div>
-        @endif
-        @if($wrong)
-        <div class="col-6 col-sm-4 mx-auto ">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title text-center" style="font-size: medium;"> عدد القراءات الخاطئة</h5>
-                    <h6 class="card-text text-center"> {{$wrong}}</h6>
-                </div>
-            </div>
-        </div>
-        @endif
-    </div>
-    @endrole
-
+ 
     <div>
         @if (session()->has('message'))
 
@@ -43,9 +16,18 @@
 
         @endif
     </div>
-    <div class="input-group form-container">
-        <input type="text" name="search" wire:model="query" wire:keydown.escape="resett" wire:keydown.tab="resett" class="form-control search-input" placeholder="ادخل اسم للبحث" autofocus="autofocus" autocomplete="off" onclick="setBgToDark()">
+    <button onclick="myFunction()"  type="button" class="form-control form-control-sm btn btn-sm btn-success">طريقة البحث</button>
 
+    <div class="input-group form-container">
+        <input type="text" id="search" name="search" wire:model="query" wire:keydown.escape="resett" wire:keydown.tab="resett" class="form-control search-input" placeholder="ادخل اسم للبحث" autofocus="autofocus" autocomplete="off" onclick="setBgToDark()">
+        <select id="address"  style="display: none;" wire:model="address" class="form-control search-input" >
+           
+           @foreach ($ad as $a)
+           <option value="{{$a}}">{{$a}}</option>
+           @endforeach
+           <option value="" selected>البحث حسب العنوان </option>
+
+        </select>
         <span class="input-group-btn">
             <button class="btn btn-search" wire:click="resett" value="Reset">Reset
             </button>
@@ -91,4 +73,22 @@
         </div>
         @endif
 
+        <script>
+            function myFunction() {
+              var search = document.getElementById("search");
+              var address = document.getElementById("address");
+
+              if (search.style.display === "none") {
+                search.style.display = "block";
+                address.style.display = "none";
+
+              } else {
+                search.style.display = "none";
+                address.style.display = "block";
+
+
+              }
+            }
+            </script>
+            
     </div>

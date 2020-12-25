@@ -23,28 +23,24 @@ class OutlayController extends Controller
 
     public function index(Request $request)
     {
-        $dates = Outlay::select(
-            DB::raw('created_at as c'),
 
-            DB::raw('YEAR(created_at) as year'),
-            DB::raw('MONTH(created_at) as month'),
-        )->groupBy('year', 'month')->get();
 
-        $outlays = Outlay::when($request->search, function ($q) use ($request) {
-
-            return $q->where('payee', 'like', '%'  . $request->search . '%');
-        })->when($request->category_id, function ($q) use ($request) {
+        $outlays = Outlay::when($request->category_id, function ($q) use ($request) {
 
             return $q->where('outlay_category_id', $request->category_id);
         })->when($request->date, function ($q) use ($request) {
-            return $q->whereYear('created_at',  $request->date)
-                ->whereMonth('created_at',  $request->month);
-        })->latest()->paginate(50);
+            $explode_date = explode('-', $request->date);
+            $month = $explode_date[1];
+            $year = $explode_date[0];
+            return $q->whereYear('created_at',  $year)
+                ->whereMonth('created_at',  $month);
+        })->orderBy('outlay_category_id')->paginate(50);
         $categories = OutlayCategory::get();
-        $total = Outlay::sum('amount');
+        $total = $outlays->sum('amount');
 
-        return view('dashboard.outlays.index', compact('outlays', 'categories', 'dates', 'total'));
+        return view('dashboard.outlays.index', compact('outlays', 'categories',  'total'));
     } //end of index
+
 
     public function create()
     {
@@ -104,4 +100,18 @@ class OutlayController extends Controller
         session()->flash('success', __('site.deleted_successfully'));
         return redirect()->route('dashboard.outlays.index');
     } //end of destroy
+
+
+    public function cat(Request $request)
+    {
+        $categories = OutlayCategory::get();
+        $dates = Outlay::select(
+            DB::raw('created_at as c'),
+
+            DB::raw('YEAR(created_at) as year'),
+            DB::raw('MONTH(created_at) as month'),
+        )->groupBy('year', 'month')->get();
+
+        return view('dashboard.outlays.category', compact('categories', 'dates'));
+    }
 }//end of controller
