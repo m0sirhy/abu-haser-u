@@ -25,9 +25,11 @@ class ConsumptionCycle extends Model
     {
         if ($this->curent > 0) {
             $consume = $this->curent - $this->previous;
-            $fcurent = $this->curent;
-
+if($consume> 0)
             return $consume  ;
+            
+            return 0;
+
         }
     } //end of get profit attribute
 

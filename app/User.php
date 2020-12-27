@@ -43,4 +43,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\ConsumptionCycle');
     }
+
+    public function consume()
+    {
+        return $this->hasMany('App\Consume');
+    }
 }

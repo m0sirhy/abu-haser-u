@@ -59,7 +59,6 @@
                     @endif
                     <br>
                     <br>
-                    <span class="input-group-text" id="inputGroup-sizing-sm"> {{$client->user->name }} </span>
 
                     <span class="input-group-text" id="inputGroup-sizing-sm"> {{ \Carbon\Carbon::parse($client->updated_at )->diffForHumans() }}</span>
                     @endif

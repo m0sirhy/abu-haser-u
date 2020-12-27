@@ -12,7 +12,8 @@
         </h1>
 
         <ol class="breadcrumb">
-            <li><a href="{{ route('dashboard.welcome') }}"><i class="fa fa-dashboard"></i> @lang('site.dashboard')</a></li>
+            <li><a href="{{ route('dashboard.welcome') }}"><i class="fa fa-dashboard"></i> @lang('site.dashboard')</a>
+            </li>
             <li class="active">@lang('site.outlays')</li>
         </ol>
     </section>
@@ -55,11 +56,14 @@
                             </select>
                         </div>
                         <div class="col-md-4">
-                            <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> @lang('site.search')</button>
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i>
+                                @lang('site.search')</button>
                             @if (auth()->user()->hasPermission('create_categories'))
-                            <a href="{{ route('dashboard.outlays.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> @lang('site.add')</a>
+                            <a href="{{ route('dashboard.outlays.create') }}" class="btn btn-primary"><i
+                                    class="fa fa-plus"></i> @lang('site.add')</a>
                             @else
-                            <a href="#" class="btn btn-primary disabled"><i class="fa fa-plus"></i> @lang('site.add')</a>
+                            <a href="#" class="btn btn-primary disabled"><i class="fa fa-plus"></i>
+                                @lang('site.add')</a>
                             @endif
                         </div>
 
@@ -72,18 +76,27 @@
             <div class="box-body">
 
 
-
-                <table class="table table-hover">
+                <table class="table">
 
                     <thead>
+                      
                         <tr>
+                            @foreach ($categories as $category)
+
                             <th>#</th>
+                            <th> {{ $category->name }}</th>
+                            @foreach( $category->outlays as $outlay)
+                            <th> {{$outlay->amount}}</th>
+                            @endforeach
+                            <th> <b> {{ $category->outlays->sum('amount')}}<b> </th>
 
                         </tr>
+                        @endforeach
                     </thead>
 
                     <tbody>
-
+                        <tr>
+                        </tr>
                     </tbody>
 
                 </table><!-- end of table -->

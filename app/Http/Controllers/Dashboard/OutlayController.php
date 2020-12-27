@@ -104,7 +104,7 @@ class OutlayController extends Controller
 
     public function cat(Request $request)
     {
-        $categories = OutlayCategory::get();
+        $categories = OutlayCategory::with('outlays')->get();
         $dates = Outlay::select(
             DB::raw('created_at as c'),
 
