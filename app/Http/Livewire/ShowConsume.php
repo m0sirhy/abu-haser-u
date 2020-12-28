@@ -61,7 +61,9 @@ class ShowConsume extends Component
         $this->clients = ConsumptionCycle::where('full_name', 'like', '%' . $this->query . '%')
             ->limit(25)
             ->get();
-        return view('livewire.show-consume');
+            $total=ConsumptionCycle::where('curent','>',0)->get()->sum('consume');
+
+        return view('livewire.show-consume',compact('total'));
     }
 
 }
