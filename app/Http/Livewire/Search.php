@@ -16,7 +16,7 @@ class Search extends Component
     protected $rules = [
         'query' => 'required|min:1',
     ];
-     protected $listeners = ['update' => '$refresh'];
+    protected $listeners = ['update' => '$refresh'];
     public function mount()
     {
         $this->clients = [];
@@ -33,7 +33,7 @@ class Search extends Component
     {
 
         $this->clients = ConsumptionCycle::Where('address', $this->address)
-            ->get();
+            ->with('user')->get();
     }
     public function updatedQuery()
     {
@@ -41,6 +41,7 @@ class Search extends Component
 
         $this->clients = ConsumptionCycle::where('full_name', 'like', '%' . $this->query . '%')
             ->limit(5)
+            ->with('user')
             ->get();
     }
 
@@ -57,7 +58,6 @@ class Search extends Component
             $this->emit('update');
             $this->reset('curent');
             session()->flash('message', ' " :تمت اضافة قراءة للسيد ' . $record->full_name . " كمية الاستهلاك " . $consume . "كيلو واط");
-
         }
     }
 
@@ -84,7 +84,7 @@ class Search extends Component
     public function render()
     {
 
-       
+
 
         return view('livewire.search');
     }
