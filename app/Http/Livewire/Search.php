@@ -27,7 +27,7 @@ class Search extends Component
 
     public function resett()
     {
-        $this->reset(['curent', 'clients']);
+        $this->reset(['curent', 'clients','query']);
     }
     public function updatedAddress()
     {
