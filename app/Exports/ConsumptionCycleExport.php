@@ -25,13 +25,18 @@ class ConsumptionCycleExport implements FromCollection, WithMapping, WithHeading
 
     public function map($ConsumptionCycle): array
     {
+
+
         return [
             $ConsumptionCycle->full_name,
             $ConsumptionCycle->previous,
             $ConsumptionCycle->curent,
             $ConsumptionCycle->consume,
             $ConsumptionCycle->user->name,
-            $ConsumptionCycle->updated_at
+            $ConsumptionCycle->address,
+
+
+            $ConsumptionCycle->updated_at,
 
 
         ];
@@ -47,7 +52,10 @@ class ConsumptionCycleExport implements FromCollection, WithMapping, WithHeading
             'القراءة الحالية',
             'الاستهلاك',
             'مدخل البيانات',
+            'العنوان',
+
             'التاريخ',
+            'ملاحظات'
 
         ];
     }
