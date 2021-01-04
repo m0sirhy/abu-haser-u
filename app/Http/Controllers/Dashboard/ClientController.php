@@ -21,11 +21,10 @@ class ClientController extends Controller
     {
         $clients = Client::when($request->search, function($q) use ($request){
 
-            return $q->where('name', 'like', '%' . $request->search . '%')
-                ->orWhere('phone', 'like', '%' . $request->search . '%')
+            return $q->where('full_name', 'like', '%' . $request->search . '%')
                 ->orWhere('address', 'like', '%' . $request->search . '%');
 
-        })->latest()->paginate(5);
+        })->latest()->paginate(50);
 
         return view('dashboard.clients.index', compact('clients'));
 
@@ -40,8 +39,8 @@ class ClientController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'phone' => 'required',
+            'full_name' => 'required',
+            'mobile' => 'required',
             'address' => 'required',
         ]);
 
@@ -63,8 +62,8 @@ class ClientController extends Controller
     public function update(Request $request, Client $client)
     {
         $request->validate([
-            'name' => 'required',
-            'phone' => 'required',
+            'full_name' => 'required',
+            'mobile' => 'required',
             'address' => 'required',
         ]);
 
