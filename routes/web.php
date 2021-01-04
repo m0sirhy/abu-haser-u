@@ -25,8 +25,15 @@ use Illuminate\Support\Facades\Route;
     //     event(new SendLocation($location));
     //     return response()->json(['status'=>'success', 'data'=>$location]);
     // });
-   
+
 
     Auth::routes(['register' => false ,'password.request' => false, 'password.reset' => false]);
 
-
+Route::group(
+    [
+        'namespace' => 'Employee',
+        'prefix' => 'Employee',
+    ] , function() {
+    Route::resource('Employee' , 'EmployeeController');
+    Route::post('Employee/{id}/update' , 'EmployeeController@update')->name('Employee.update');
+});
