@@ -3,7 +3,6 @@
     <div class="box-header with-border">
 
 
-        <h3 class="box-title" style="margin-bottom: 15px">@lang('site.clients') <small>اجمالي الاستهلاك :@if (auth()->user()->hasRole('super_admin')) {{$total}}  @endif</small></h3>
 
 
         <div>
