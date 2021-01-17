@@ -16,6 +16,7 @@ Route::prefix('dashboard')->name('dashboard.')->middleware(['auth'])->group(func
     //outlay routes
     Route::resource('outlays', 'OutlayController')->except(['show']);
     Route::get('outlay/categories', 'OutlayController@cat');
+    Route::get('outlays/export/', 'OutlayController@export');
 
     //outlayscategory routes
     Route::resource('outlay_categories', 'OutlayCategoryController');
@@ -23,6 +24,8 @@ Route::prefix('dashboard')->name('dashboard.')->middleware(['auth'])->group(func
     //product routes
     //payment routes
     Route::resource('payments', 'PaymentController')->except(['show']);
+
+    Route::resource('receipts', 'ReceiptController')->except(['show']);
 
     //client routes
     Route::resource('clients', 'ClientController')->except(['show']);

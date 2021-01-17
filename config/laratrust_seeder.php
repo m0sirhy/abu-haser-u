@@ -14,6 +14,8 @@ return [
             'outlays' => 'c,r,u,d',
             'purchaces' =>'c,r,u,d',
             'payments' =>'c,r,u,d',
+            'receipts' =>'c,r,u,d',
+
             'consume' => 'c,r,u,d',
             'importExport' => 'c,r,u,d',
 

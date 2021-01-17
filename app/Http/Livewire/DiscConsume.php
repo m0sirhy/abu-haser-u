@@ -9,7 +9,7 @@ use Livewire\WithPagination;
 
 class DiscConsume extends Component
 {
-    
+
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
 
@@ -18,8 +18,8 @@ class DiscConsume extends Component
     protected $rules = [
         'query' => 'required|min:3',
     ];
-    
- 
+
+
     public function updateStatus($id, $status)
     {
         if ($this->id) {
@@ -37,13 +37,14 @@ class DiscConsume extends Component
     }
 
 
-  
+
     public function render()
     {
         $clients = ConsumptionCycle::Where('label', 0)->where('full_name', 'like', '%' . $this->query . '%')
-        ->orderBy('full_name', 'asc')
-        ->paginate(50);
-        
+            ->orderBy('full_name', 'asc')
+            ->with('user')
+            ->paginate(50);
+
         return view('livewire.disc-consume', ['clients' => $clients]);
     }
 }

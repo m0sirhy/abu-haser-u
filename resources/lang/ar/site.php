@@ -6,6 +6,7 @@ return [
     'outlay_category_id' => 'قسم المصروفات',
     'year' => 'السنة',
     'month' => 'الشهر',
+    'export' => 'تصدير',
 
     'categories' => 'الاقسام',
     'all_categories' => 'كل الاقسام',

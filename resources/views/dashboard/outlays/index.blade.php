@@ -30,7 +30,7 @@
 
 
                         <div class="col-md-4">
-                        <input value="{{request()->date}}" type="month" class="form-control" name="date">
+                        <input value="{{request()->date}}" type="month" class="form-control" name="date" required>
 
                            
                         </div>
@@ -46,6 +46,8 @@
                         </div>
                         <div class="col-md-4">
                             <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> @lang('site.search')</button>
+                            <button type="submit"  class="btn btn-primary" formaction="outlays/export"><i class="fa fa-print"></i> @lang('site.export')</button>
+
                             @if (auth()->user()->hasPermission('create_categories'))
                             <a href="{{ route('dashboard.outlays.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> @lang('site.add')</a>
                             @else

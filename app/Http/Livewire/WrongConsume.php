@@ -64,7 +64,9 @@ class WrongConsume extends Component
         $clients = ConsumptionCycle::select('*')
             ->from('consumption_cycles')
             ->where('curent', '!=', 0)
-            ->whereColumn('curent', '<', 'previous')->latest()->paginate(50);
+            ->whereColumn('curent', '<', 'previous')->latest()
+            ->with('user')
+            ->paginate(50);
         return view('livewire.wrong-consume', ['clients' => $clients]);
     }
 }

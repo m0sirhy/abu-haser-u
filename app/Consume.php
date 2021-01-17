@@ -14,4 +14,8 @@ class Consume extends Model
     {
         return $this->belongsTo('App\Client');
     }
+
+
+
+    
 }

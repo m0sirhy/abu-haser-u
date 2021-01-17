@@ -8,6 +8,8 @@ use App\Outlay;
 use App\OutlayCategory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Exports\OutlaysExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class OutlayController extends Controller
 {
@@ -34,7 +36,7 @@ class OutlayController extends Controller
             $year = $explode_date[0];
             return $q->whereYear('created_at',  $year)
                 ->whereMonth('created_at',  $month);
-        })->orderBy('outlay_category_id')->paginate(50);
+        })->orderBy('outlay_category_id')-> with('user')->paginate(50);
         $categories = OutlayCategory::get();
         $total = $outlays->sum('amount');
 
@@ -114,4 +116,18 @@ class OutlayController extends Controller
 
         return view('dashboard.outlays.category', compact('categories', 'dates'));
     }
+
+    public function export(Request $request) 
+    {
+      //  dd($request->date);
+        $explode_date = explode('-', $request->date);
+        $month = $explode_date[1];
+        $year = $explode_date[0]; 
+       $t= date('Y-m-d H:i:s');
+
+        return Excel::download(new OutlaysExport($year,$month),  $t.'-outlay.xlsx');
+    }
+
+
+
 }//end of controller

@@ -60,7 +60,8 @@ class EmptyConsume extends Component
     public function render()
     {
         $clients = ConsumptionCycle::Where('label', 1)->Where('curent', 0)->where('full_name', 'like', '%' . $this->query . '%')
-            ->paginate(50);
+        ->with('user')
+        ->paginate(50);
         return view('livewire.empty-consume', ['clients' => $clients]);
     }
 }
