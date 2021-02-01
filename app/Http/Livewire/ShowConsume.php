@@ -34,8 +34,7 @@ class ShowConsume extends Component
             $consume =  $record->curent - $record->previous;
             session()->flash('message', ' " :تمت اضافة قراءة للسيد ' . $record->full_name . " كمية الاستهلاك " . $consume . "كيلو واط");
 
-            $this->reset('curent','clients','query');
-
+            $this->reset('curent', 'clients', 'query');
         }
     }
     public function updateStatus($id, $status)
@@ -59,14 +58,13 @@ class ShowConsume extends Component
     {
 
         $this->clients = ConsumptionCycle::where('full_name', 'like', '%' . $this->query . '%')
-        
+
             ->limit(25)
             ->with('user')
 
             ->get();
-            $total=ConsumptionCycle::where('curent','>',0)->get()->sum('consume');
+        $total = ConsumptionCycle::where('curent', '>', 0)->get()->sum('consume');
 
-        return view('livewire.show-consume',compact('total'));
+        return view('livewire.show-consume', compact('total'));
     }
-
 }
