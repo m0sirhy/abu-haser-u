@@ -56,6 +56,7 @@ class Search extends Component
             ]);
             $consume =  $record->curent - $record->previous;
             $this->emit('update');
+            
             $this->reset('curent');
             session()->flash('message', ' " :تمت اضافة قراءة للسيد ' . $record->full_name . " كمية الاستهلاك " . $consume . "كيلو واط");
         }

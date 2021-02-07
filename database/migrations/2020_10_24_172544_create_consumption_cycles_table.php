@@ -14,7 +14,7 @@ class CreateConsumptionCyclesTable extends Migration
     public function up()
     {
         Schema::create('consumption_cycles', function (Blueprint $table) {
-            $table->index([ 'full_name']);
+            $table->index('full_name');
 
             $table->id();
             $table->unsignedInteger('user_id')->default(1);

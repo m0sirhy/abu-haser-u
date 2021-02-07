@@ -28,7 +28,8 @@ use Illuminate\Support\Facades\Route;
 
 
     Auth::routes(['register' => false ,'password.request' => false, 'password.reset' => false]);
-
+    Route::post('/push','PushController@store');
+    Route::get('/push','PushController@push')->name('push'); 
 Route::group(
     [
         'namespace' => 'Employee',

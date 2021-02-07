@@ -43,5 +43,4 @@
 
  
     <!-- ./End of search box -->
-
     @endsection

@@ -32,7 +32,15 @@ class ConsumptionCycle extends Model
 
             return 0;
         }
-    } //end of get profit attribute
+
+
+    }
+public function getDateAttribute(){
+   $date= \Carbon\Carbon::parse($this->updated_at )->diffForHumans();
+    return $date;
+    
+}
+
 
 
 }

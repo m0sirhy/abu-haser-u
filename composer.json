@@ -17,9 +17,10 @@
         "laravel/ui": "2.4",
         "livewire/livewire": "^2.3",
         "maatwebsite/excel": "^3.1",
-        "pusher/pusher-php-server": "~4.0",
-        "santigarcor/laratrust": "^6.3"
-        },
+        "pusher/pusher-php-server": "^4.1",
+        "santigarcor/laratrust": "^6.3",
+        "silviolleite/laravelpwa": "^2.0"
+    },
     "require-dev": {
         "facade/ignition": "^2.0",
         "fzaninotto/faker": "^1.9.1",
